@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Portfólio – Visualização (Google Drive)</title>
   <meta name="description" content="Visualize e baixe o PDF do portfólio hospedado no Google Drive." />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'><rect width='256' height='256' rx='64' fill='%23000'/><text x='50%' y='56%' text-anchor='middle' font-family='Arial' font-size='120' fill='%23fff'>MF</text></svg>">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
   <style>
     :root { --bg:#0b0b0c; --card:#131316; --muted:#8a8a92; --text:#f7f7fb; }
     * { box-sizing: border-box; }
@@ -14,8 +14,7 @@
     header { padding: 24px 20px; display: flex; align-items: center; justify-content: center; position: sticky; top: 0; backdrop-filter: blur(6px); background: rgba(11,11,12,.65); border-bottom: 1px solid #1f1f25; z-index: 10; }
     .wrap { width: min(1100px, 96vw); margin: 0 auto; }
     .brand { display: flex; align-items: center; gap: 12px; }
-    .brand .logo { width: 36px; height: 36px; display: grid; place-items: center; border-radius: 12px; background: linear-gradient(135deg, #0ea5e9, #3a86ff 60%, #a855f7); font-weight: 800; letter-spacing: .5px; }
-    .brand .logo span { font-size: 14px; color: white; }
+    .dot { width: 10px; height: 10px; border-radius: 999px; background: #3a86ff; box-shadow: 0 0 24px #3a86ff80; }
     .brand h1 { font-size: 16px; margin: 0; font-weight: 650; }
     main { padding: 28px 0 40px; }
     .card { background: var(--card); border: 1px solid #1f1f25; border-radius: 18px; padding: clamp(14px, 2vw, 18px); box-shadow: 0 1px 0 #222 inset, 0 40px 80px rgba(0,0,0,.3); }
@@ -26,8 +25,8 @@
     .btn { appearance: none; border: 1px solid #2a2a33; background: #16161b; color: var(--text); padding: 10px 14px; border-radius: 12px; font-size: 14px; text-decoration: none; display: inline-flex; gap: 8px; align-items: center; }
     .btn:hover { border-color: #3a3a44; transform: translateY(-1px); }
     .btn .icon { width: 18px; height: 18px; display: inline-block; }
-    .viewer { aspect-ratio: 3/4; width: 100%; border: 1px dashed #2a2a33; border-radius: 14px; overflow: hidden; display: grid; place-items: center; background: #0f0f13; }
-    .viewer iframe, .viewer embed { width: 100%; height: 100%; border: 0; }
+    .viewer { aspect-ratio: 3/4; width: 100%; border: 1px dashed #2a2a33; border-radius: 14px; overflow: hidden; background: #0f0f13; }
+    iframe, embed { width: 100%; height: 100%; border: 0; }
     .fallback { text-align: center; padding: 24px; color: var(--muted); }
     footer { color: var(--muted); font-size: 13px; padding: 18px 20px 40px; text-align: center; }
     .kbd { border: 1px solid #2a2a33; background: #141419; color: #e7e7ef; padding: 2px 6px; border-radius: 6px; font-size: 12px; }
@@ -36,7 +35,7 @@
 <body>
   <header>
     <div class="wrap brand">
-      <div class="logo"><span>MF</span></div>
+      <span class="dot" aria-hidden="true"></span>
       <h1>Portfólio · Google Drive</h1>
     </div>
   </header>
@@ -44,7 +43,7 @@
   <main class="wrap grid">
     <section class="card grid" aria-labelledby="sec-title">
       <div class="meta">
-        <div class="title" id="sec-title">PDF do Portfólio (link externo)</div>
+        <div class="title" id="sec-title">Visualizar no navegador (sem baixar)</div>
         <div class="actions">
           <a class="btn" target="_blank" rel="noopener" href="https://drive.google.com/file/d/1hwL4bAfjLaxYp4P9yeqsHnkQXm8ww2ag/view?usp=sharing">
             <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14 3h7v7M10 14 21 3M5 7v14h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -58,41 +57,21 @@
       </div>
 
       <div class="viewer" id="viewer">
-        <!-- Tentativa de exibição direta via link de download do Drive -->
-        <embed id="pdfEmbed" src="https://drive.google.com/uc?export=download&id=1hwL4bAfjLaxYp4P9yeqsHnkQXm8ww2ag#view=FitH" type="application/pdf" />
-        <noscript>
-          <div class="fallback">
-            Seu navegador não consegue exibir o PDF embutido. Use os botões <span class="kbd">Abrir no Google Drive</span> ou <span class="kbd">Baixar PDF</span> acima.
-          </div>
-        </noscript>
+        <!-- Visualizador do Google Drive embutido -->
+        <iframe src="https://drive.google.com/file/d/1hwL4bAfjLaxYp4P9yeqsHnkQXm8ww2ag/preview" allow="autoplay"></iframe>
       </div>
-      <div class="fallback" id="fallback" hidden>
-        Não foi possível abrir o PDF embutido. Tente <span class="kbd">Abrir no Google Drive</span> ou faça o <span class="kbd">Download</span>.
+      <div class="fallback" id="fallback">
+        Se o PDF não carregar, use <span class="kbd">Abrir no Google Drive</span> ou <span class="kbd">Baixar PDF</span> acima.
       </div>
     </section>
   </main>
 
   <footer>
-    Hospede estes arquivos em um repositório público e ative o GitHub Pages (branch <strong>main</strong>, pasta <strong>/root</strong>). — © <span id="year"></span> Magnus Firme.
+    Publicação recomendada: GitHub Pages (branch <strong>main</strong>, pasta <strong>/root</strong>). — © <span id="year"></span> Magnus Firme.
   </footer>
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
-    window.addEventListener('DOMContentLoaded', function(){
-      const embed = document.getElementById('pdfEmbed');
-      const fallback = document.getElementById('fallback');
-      let failed = false;
-      function markFailed(){
-        if(!failed){
-          failed = true;
-          if (embed && embed.remove) embed.remove();
-          fallback.hidden = false;
-        }
-      }
-      const timer = setTimeout(markFailed, 2500);
-      embed?.addEventListener('load', () => clearTimeout(timer));
-      embed?.addEventListener('error', markFailed);
-    });
   </script>
 </body>
 </html>
